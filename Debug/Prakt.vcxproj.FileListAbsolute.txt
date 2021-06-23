@@ -1,0 +1,2 @@
+C:\Users\Алексей\source\repos\Prakt\Debug\Prakt.vcxproj.AssemblyReference.cache
+C:\Users\Алексей\source\repos\Prakt\Debug\Prakt.exe
