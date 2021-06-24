@@ -1,2 +1,4 @@
-﻿  MainForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+﻿  MainForm.cpp
+C:\Users\Алексей\source\repos\Prakt\MainForm.cpp(8,32): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
+  MainForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
   Prakt.vcxproj -> C:\Users\Алексей\source\repos\Prakt\Debug\Prakt.exe

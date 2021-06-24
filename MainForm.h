@@ -186,7 +186,7 @@ namespace Prakt {
 			this->button_create->Name = L"button_create";
 			this->button_create->Size = System::Drawing::Size(224, 26);
 			this->button_create->Text = L"Ñîçäàòü";
-			this->button_create->Click += gcnew System::EventHandler(this, &MainForm::íîâûéToolStripMenuItem_Click);
+			this->button_create->Click += gcnew System::EventHandler(this, &MainForm::button_create_Click);
 			// 
 			// button_open
 			// 
@@ -200,7 +200,7 @@ namespace Prakt {
 			this->button_save->Name = L"button_save";
 			this->button_save->Size = System::Drawing::Size(224, 26);
 			this->button_save->Text = L"Ñîõðàíèòü";
-			this->button_save->Click += gcnew System::EventHandler(this, &MainForm::ñîõðàíèòüToolStripMenuItem_Click);
+			this->button_save->Click += gcnew System::EventHandler(this, &MainForm::button_save_Click);
 			// 
 			// button_saveas
 			// 
