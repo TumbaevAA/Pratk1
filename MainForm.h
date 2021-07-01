@@ -31,8 +31,24 @@ namespace Prakt {
 
 	private:
 		WorkFile^ _workFile;
+		System::Text::Encoding^ _encoding;
 	private: System::Windows::Forms::SaveFileDialog^ saveFileDialog1;
-		   System::Text::Encoding^ _encoding;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ col_comp;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ col_add;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ col_post;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ col_sal;
+	private: System::Windows::Forms::DataGridViewComboBoxColumn^ col_edu;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ col_exp;
+	private: System::Windows::Forms::DataGridViewComboBoxColumn^ col_cond;
+	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
+
+
+
+
+
+
+
+		   
 
 
 	protected:
@@ -54,20 +70,7 @@ namespace Prakt {
 	private: System::Windows::Forms::ToolStripMenuItem^ button_open;
 	private: System::Windows::Forms::ToolStripMenuItem^ button_save;
 	private: System::Windows::Forms::ToolStripMenuItem^ button_saveas;
-
-
-
-
-
 	private: System::Windows::Forms::ToolStripMenuItem^ button_del;
-
-
-
-
-
-
-
-
 	private: System::Windows::Forms::ToolStripMenuItem^ button_search;
 	private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator1;
 	private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator2;
@@ -89,6 +92,13 @@ namespace Prakt {
 		void InitializeComponent(void)
 		{
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->col_comp = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->col_add = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->col_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->col_sal = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->col_edu = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
+			this->col_exp = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->col_cond = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->button_file = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->button_create = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -101,13 +111,19 @@ namespace Prakt {
 			this->button_search = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->button_del = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// dataGridView1
 			// 
+			this->dataGridView1->AllowUserToOrderColumns = true;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(7) {
+				this->col_comp,
+					this->col_add, this->col_post, this->col_sal, this->col_edu, this->col_exp, this->col_cond
+			});
 			this->dataGridView1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->dataGridView1->Location = System::Drawing::Point(0, 28);
 			this->dataGridView1->Name = L"dataGridView1";
@@ -116,12 +132,77 @@ namespace Prakt {
 			this->dataGridView1->Size = System::Drawing::Size(994, 507);
 			this->dataGridView1->TabIndex = 0;
 			// 
+			// col_comp
+			// 
+			this->col_comp->DataPropertyName = L"comp";
+			this->col_comp->HeaderText = L"Предприятие";
+			this->col_comp->MinimumWidth = 6;
+			this->col_comp->Name = L"col_comp";
+			this->col_comp->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->col_comp->Width = 125;
+			// 
+			// col_add
+			// 
+			this->col_add->DataPropertyName = L"add";
+			this->col_add->HeaderText = L"Адрес";
+			this->col_add->MinimumWidth = 6;
+			this->col_add->Name = L"col_add";
+			this->col_add->Width = 125;
+			// 
+			// col_post
+			// 
+			this->col_post->DataPropertyName = L"post";
+			this->col_post->HeaderText = L"Должность";
+			this->col_post->MinimumWidth = 6;
+			this->col_post->Name = L"col_post";
+			this->col_post->Width = 125;
+			// 
+			// col_sal
+			// 
+			this->col_sal->DataPropertyName = L"sal";
+			this->col_sal->HeaderText = L"Зарплата";
+			this->col_sal->MinimumWidth = 6;
+			this->col_sal->Name = L"col_sal";
+			this->col_sal->Width = 125;
+			// 
+			// col_edu
+			// 
+			this->col_edu->DataPropertyName = L"edu";
+			this->col_edu->DisplayStyle = System::Windows::Forms::DataGridViewComboBoxDisplayStyle::Nothing;
+			this->col_edu->HeaderText = L"Образование";
+			this->col_edu->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"vishee", L"srednee specialnoe", L"srednee", L"nachalnoe" });
+			this->col_edu->MinimumWidth = 6;
+			this->col_edu->Name = L"col_edu";
+			this->col_edu->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->col_edu->Width = 125;
+			// 
+			// col_exp
+			// 
+			this->col_exp->DataPropertyName = L"exp";
+			this->col_exp->HeaderText = L"Стаж";
+			this->col_exp->MinimumWidth = 6;
+			this->col_exp->Name = L"col_exp";
+			this->col_exp->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->col_exp->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
+			this->col_exp->Width = 125;
+			// 
+			// col_cond
+			// 
+			this->col_cond->DataPropertyName = L"cond";
+			this->col_cond->DisplayStyle = System::Windows::Forms::DataGridViewComboBoxDisplayStyle::Nothing;
+			this->col_cond->HeaderText = L"Жил. условия";
+			this->col_cond->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"kvartira", L"obshejitie", L"ne predostavlyautsa" });
+			this->col_cond->MinimumWidth = 6;
+			this->col_cond->Name = L"col_cond";
+			this->col_cond->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->col_cond->Width = 125;
+			// 
 			// menuStrip1
 			// 
 			this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
 			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
-				this->button_file, this->button_search,
-					this->button_del
+				this->button_file, this->button_del,
+					this->button_search
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
@@ -195,13 +276,17 @@ namespace Prakt {
 			// button_del
 			// 
 			this->button_del->Name = L"button_del";
-			this->button_del->Size = System::Drawing::Size(79, 24);
-			this->button_del->Text = L"Удалить";
+			this->button_del->Size = System::Drawing::Size(128, 24);
+			this->button_del->Text = L"Удалить строку";
 			this->button_del->Click += gcnew System::EventHandler(this, &MainForm::button_del_Click);
 			// 
 			// saveFileDialog1
 			// 
 			this->saveFileDialog1->DefaultExt = L"csv";
+			// 
+			// openFileDialog1
+			// 
+			this->openFileDialog1->DefaultExt = L"csv";
 			// 
 			// MainForm
 			// 
@@ -210,6 +295,7 @@ namespace Prakt {
 			this->ClientSize = System::Drawing::Size(994, 535);
 			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->menuStrip1);
+			this->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"MainForm";
 			this->Text = L"MainForm";
@@ -222,14 +308,14 @@ namespace Prakt {
 
 		}
 #pragma endregion
-	private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {}      //Загрузка формы
+	private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e);         //Загрузка формы
 	private: System::Void button_save_Click(System::Object^ sender, System::EventArgs^ e);     //Сохранить 
 	private: System::Void button_file_Click(System::Object^ sender, System::EventArgs^ e) {}   //Файл
 	private: System::Void button_create_Click(System::Object^ sender, System::EventArgs^ e);   //Создать 
-	private: System::Void button_open_Click(System::Object^ sender, System::EventArgs^ e) {}    //Открыть 
-	private: System::Void button_saveas_Click(System::Object^ sender, System::EventArgs^ e) {}  //Сохранить как
+	private: System::Void button_open_Click(System::Object^ sender, System::EventArgs^ e);     //Открыть 
+	private: System::Void button_saveas_Click(System::Object^ sender, System::EventArgs^ e);  //Сохранить как
 	private: System::Void button_search_Click(System::Object^ sender, System::EventArgs^ e) {}  //Поиск
-	private: System::Void button_del_Click(System::Object^ sender, System::EventArgs^ e) {}     //Удалить
-	private: System::Void button_exit_Click(System::Object^ sender, System::EventArgs^ e) {}    //Выход
+	private: System::Void button_del_Click(System::Object^ sender, System::EventArgs^ e);       //Удалить
+	private: System::Void button_exit_Click(System::Object^ sender, System::EventArgs^ e);    //Выход
 	};
 }

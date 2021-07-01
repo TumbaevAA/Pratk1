@@ -12,5 +12,6 @@ public:
 	
 	property String^ FileName;       //Имя файла
 	property List<Row^>^ Values;     //Список со значениями  
+	property bool IsNew;
 };
 

@@ -9,28 +9,21 @@ ref class Row
 {
 private:
 	void parseLine(String^ rowLine);
-	char _delimiter;                   //Разделитель
-
 
 public:
 	Row();
 	Row(String^ rowLine);
 	String^ ToCsvString();
 
+	Nullable<int> ToNullableInt32(String^ str);//Преобразование строки из файла в NullableInt32
+	Nullable<float> ToNullableSingle(String^ str);//Преобразование строки из файла в NullableSingle
 
-	[DisplayName("Жил. условия")]
-	property Nullable<int> cond;
-	[DisplayName("Стаж")]
+	property String^ cond;
 	property Nullable<int> exp;
-	[DisplayName("Образование")]
-	property Nullable<int> edu;
-	[DisplayName("Зарплата")]
-	property Nullable<int> sal;
-	[DisplayName("Должность")]
+	property String^ edu;
+	property Nullable<float> sal;
 	property String^ post;
-	[DisplayName("Адрес")]
 	property String^ add;
-	[DisplayName ("Предприятие")] 
 	property String^ comp;
 
 };
