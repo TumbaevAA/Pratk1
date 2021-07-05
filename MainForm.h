@@ -25,13 +25,12 @@ namespace Prakt {
 			//
 			//TODO: Add the constructor code here
 			//
-
-			_encoding = System::Text::Encoding::UTF8;
 		}
 
 	private:
 		WorkFile^ _workFile;
-		System::Text::Encoding^ _encoding;
+
+
 	private: System::Windows::Forms::SaveFileDialog^ saveFileDialog1;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ col_comp;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ col_add;
@@ -40,6 +39,13 @@ namespace Prakt {
 	private: System::Windows::Forms::DataGridViewComboBoxColumn^ col_edu;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ col_exp;
 	private: System::Windows::Forms::DataGridViewComboBoxColumn^ col_cond;
+
+
+
+
+
+
+
 	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
 
 
@@ -108,8 +114,8 @@ namespace Prakt {
 			this->button_saveas = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripSeparator2 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->button_exit = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->button_search = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->button_del = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->button_search = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
@@ -118,7 +124,6 @@ namespace Prakt {
 			// 
 			// dataGridView1
 			// 
-			this->dataGridView1->AllowUserToOrderColumns = true;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(7) {
 				this->col_comp,
@@ -129,7 +134,7 @@ namespace Prakt {
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersWidth = 51;
 			this->dataGridView1->RowTemplate->Height = 24;
-			this->dataGridView1->Size = System::Drawing::Size(994, 507);
+			this->dataGridView1->Size = System::Drawing::Size(1241, 507);
 			this->dataGridView1->TabIndex = 0;
 			// 
 			// col_comp
@@ -170,7 +175,7 @@ namespace Prakt {
 			this->col_edu->DataPropertyName = L"edu";
 			this->col_edu->DisplayStyle = System::Windows::Forms::DataGridViewComboBoxDisplayStyle::Nothing;
 			this->col_edu->HeaderText = L"Образование";
-			this->col_edu->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"vishee", L"srednee specialnoe", L"srednee", L"nachalnoe" });
+			this->col_edu->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"высшее", L"среднее специальное", L"среднее", L"начальное" });
 			this->col_edu->MinimumWidth = 6;
 			this->col_edu->Name = L"col_edu";
 			this->col_edu->Resizable = System::Windows::Forms::DataGridViewTriState::True;
@@ -191,7 +196,7 @@ namespace Prakt {
 			this->col_cond->DataPropertyName = L"cond";
 			this->col_cond->DisplayStyle = System::Windows::Forms::DataGridViewComboBoxDisplayStyle::Nothing;
 			this->col_cond->HeaderText = L"Жил. условия";
-			this->col_cond->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"kvartira", L"obshejitie", L"ne predostavlyautsa" });
+			this->col_cond->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"квартира", L"общежитие", L"не предоставляются" });
 			this->col_cond->MinimumWidth = 6;
 			this->col_cond->Name = L"col_cond";
 			this->col_cond->Resizable = System::Windows::Forms::DataGridViewTriState::True;
@@ -206,7 +211,7 @@ namespace Prakt {
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(994, 28);
+			this->menuStrip1->Size = System::Drawing::Size(1241, 28);
 			this->menuStrip1->TabIndex = 1;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -266,19 +271,19 @@ namespace Prakt {
 			this->button_exit->Text = L"Выход";
 			this->button_exit->Click += gcnew System::EventHandler(this, &MainForm::button_exit_Click);
 			// 
-			// button_search
-			// 
-			this->button_search->Name = L"button_search";
-			this->button_search->Size = System::Drawing::Size(66, 24);
-			this->button_search->Text = L"Поиск";
-			this->button_search->Click += gcnew System::EventHandler(this, &MainForm::button_search_Click);
-			// 
 			// button_del
 			// 
 			this->button_del->Name = L"button_del";
 			this->button_del->Size = System::Drawing::Size(128, 24);
 			this->button_del->Text = L"Удалить строку";
 			this->button_del->Click += gcnew System::EventHandler(this, &MainForm::button_del_Click);
+			// 
+			// button_search
+			// 
+			this->button_search->Name = L"button_search";
+			this->button_search->Size = System::Drawing::Size(66, 24);
+			this->button_search->Text = L"Поиск";
+			this->button_search->Click += gcnew System::EventHandler(this, &MainForm::button_search_Click);
 			// 
 			// saveFileDialog1
 			// 
@@ -292,7 +297,7 @@ namespace Prakt {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(994, 535);
+			this->ClientSize = System::Drawing::Size(1241, 535);
 			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->menuStrip1);
 			this->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
@@ -318,4 +323,6 @@ namespace Prakt {
 	private: System::Void button_del_Click(System::Object^ sender, System::EventArgs^ e);       //Удалить
 	private: System::Void button_exit_Click(System::Object^ sender, System::EventArgs^ e);    //Выход
 	};
+
+	void saveFile(WorkFile^ _workFile); //Функция для сохранение файла
 }

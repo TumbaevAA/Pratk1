@@ -14,6 +14,8 @@ void main(array<String^>^ arg) {
 }
 
 
+
+
 //Загрузка MainForm
 System::Void Prakt::MainForm::MainForm_Load(System::Object^ sender, System::EventArgs^ e)
 {
@@ -30,45 +32,20 @@ System::Void Prakt::MainForm::button_save_Click(System::Object^ sender, System::
 {
     if (_workFile == nullptr) return; //Если файл не создан, кнопка не активна
 
+
     if (_workFile->IsNew)
+    { 
         if (saveFileDialog1->ShowDialog() == Windows::Forms::DialogResult::OK)    //Вызов диалога с выбором директории и имени файла
         {
-            FileStream^ file = File::Create(saveFileDialog1->FileName); //Создание файла
-            try
-            {
-                _workFile->FileName = saveFileDialog1->FileName;           //Сохранение пути в FileName
+            _workFile->FileName = saveFileDialog1->FileName;           //Сохранение пути в FileName
 
-                //Преобразование Values в csv и запись в файл
-                for (int i = 0; i < _workFile->Values->Count; i++) {
-                    auto line = _workFile->Values[i]->ToCsvString();
-                    file->Write(_encoding->GetBytes(line), 0, line->Length);
-                }
-            }
-            finally
-            {
-                if (file)
-                    delete (IDisposable^)file;
-                _workFile->IsNew = false;
-            }
+            saveFile(_workFile);
         }
+    }
 
-    if (_workFile->IsNew == false)
+    else
     {
-        FileStream^ file = File::Create(_workFile->FileName); //Создание файла
-        try
-        {
-            //Преобразование Values в csv и запись в файл
-            for (int i = 0; i < _workFile->Values->Count; i++) {
-                auto line = _workFile->Values[i]->ToCsvString();
-                file->Write(_encoding->GetBytes(line), 0, line->Length);
-            }
-        }
-        finally
-        {
-            if (file)
-                delete (IDisposable^)file;
-        }
-           
+        saveFile(_workFile);
     }
 
     return System::Void();
@@ -110,12 +87,9 @@ System::Void Prakt::MainForm::button_open_Click(System::Object^ sender, System::
         }
         finally
         {
-            if (file)
-                delete (IDisposable^)file;
+            delete (IDisposable^)file;
             _workFile->IsNew = false;
-        }
-
-       
+        } 
     }
     return System::Void();
 }
@@ -126,30 +100,16 @@ System::Void Prakt::MainForm::button_open_Click(System::Object^ sender, System::
 //Сохранить как
 System::Void Prakt::MainForm::button_saveas_Click(System::Object^ sender, System::EventArgs^ e)
 {
-    if (_workFile == nullptr) return; //Если файл не создан, кнопка не активна
+    if (_workFile == nullptr) return;                                 //Если файл не создан, кнопка не активна
 
     if (saveFileDialog1->ShowDialog() == Windows::Forms::DialogResult::OK)    //Вызов диалога с выбором директории и имени файла
     {
-        FileStream^ file = File::Create(saveFileDialog1->FileName); //Открытие файла
-        try
-        {
-            _workFile->FileName = saveFileDialog1->FileName;           //Сохранение пути в FileName
 
-            //Преобразование Values в csv и запись в файл
-            for (int i = 0; i < _workFile->Values->Count; i++) {
-                auto line = _workFile->Values[i]->ToCsvString();
-                file->Write(_encoding->GetBytes(line), 0, line->Length);
-            }
-        }
-        finally
-        {
-            if (file)
-                delete (IDisposable^)file;
-            _workFile->IsNew = false;
-        }
+        _workFile->FileName = saveFileDialog1->FileName;           //Сохранение пути в FileName
+
+        saveFile(_workFile);
     }
 
-   
     return System::Void();
 }
 
@@ -157,8 +117,8 @@ System::Void Prakt::MainForm::button_saveas_Click(System::Object^ sender, System
 //Удалить
 System::Void Prakt::MainForm::button_del_Click(System::Object^ sender, System::EventArgs^ e)
 {
-    int a = dataGridView1->CurrentRow->Index;
-    dataGridView1->Rows->Remove(dataGridView1->Rows[a]);
+    int index = dataGridView1->CurrentRow->Index;
+    dataGridView1->Rows->Remove(dataGridView1->Rows[index]);
 
 
     return System::Void();
@@ -168,10 +128,32 @@ System::Void Prakt::MainForm::button_del_Click(System::Object^ sender, System::E
 //Выход
 System::Void Prakt::MainForm::button_exit_Click(System::Object^ sender, System::EventArgs^ e)
 {
-    if (MessageBox::Show(this, L"Вы действительно хотите выйти?", "MainForm", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes) {
-        Close();
-    }
+    if (MessageBox::Show(this, L"Вы действительно хотите выйти?", "MainForm", MessageBoxButtons::YesNo) == Windows::Forms::DialogResult::Yes) Close();
 
     return System::Void();
 }
 
+
+
+
+//Функция для сохранения файла
+void Prakt::saveFile(WorkFile ^ _workFile)
+{
+    using namespace IO;
+
+    FileStream^ file = File::Create(_workFile->FileName); //Открытие файла
+    try
+    {
+        //Преобразование Values в csv и запись в файл
+        for (int i = 0; i < _workFile->Values->Count; i++) {
+            auto line = _workFile->Values[i]->ToCsvString();
+            auto bytes = System::Text::Encoding::UTF8->GetBytes(line);
+            file->Write(bytes, 0, bytes->Length);
+        }
+    }
+    finally
+    {
+        delete (IDisposable^)file;
+        _workFile->IsNew = false;
+    }
+}
