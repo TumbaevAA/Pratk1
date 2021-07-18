@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="Row.cpp" />
+    <ClCompile Include="SearchRow.cpp" />
     <ClCompile Include="WorkFile.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +132,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Row.h" />
+    <ClInclude Include="SearchRow.h" />
     <ClInclude Include="WorkFile.h" />
   </ItemGroup>
   <ItemGroup>
